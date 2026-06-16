@@ -1,0 +1,16 @@
+# Ignore the Virtual Environment
+venv/
+
+# Ignore the massive datasets
+archive/
+train/
+val/
+Dataset/
+
+# Ignore any random test images you downloaded
+*.jpg
+*.jpeg
+*.png
+
+# Ignore Python cache
+__pycache__/
