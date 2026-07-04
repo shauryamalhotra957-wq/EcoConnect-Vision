@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">EcoConnect Vision Real-Time Waste Classifier</title>
+  <desc id="desc">A visual overview of a webcam waste classifier using OpenCV and MobileNetV2.</desc>
+  <rect width="1200" height="620" rx="32" fill="#f0fdf4"/>
+  <circle cx="1040" cy="110" r="170" fill="#dcfce7"/>
+  <circle cx="120" cy="530" r="170" fill="#dbeafe"/>
+  <text x="70" y="86" font-family="Segoe UI, Arial, sans-serif" font-size="46" font-weight="700" fill="#14532d">EcoConnect Vision</text>
+  <text x="70" y="128" font-family="Segoe UI, Arial, sans-serif" font-size="22" fill="#3f6350">Real-time biodegradable vs non-biodegradable waste classification.</text>
+  <rect x="85" y="190" width="520" height="330" rx="24" fill="#111827"/>
+  <rect x="125" y="235" width="440" height="235" rx="18" fill="#1f2937" stroke="#4ade80" stroke-width="4"/>
+  <rect x="205" y="285" width="220" height="125" rx="16" fill="#334155" stroke="#22c55e" stroke-width="6" stroke-dasharray="14 10"/>
+  <text x="235" y="352" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#ffffff">Detected object</text>
+  <rect x="155" y="430" width="380" height="46" rx="23" fill="#22c55e"/>
+  <text x="250" y="461" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#052e16">BIODEGRADABLE</text>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <g transform="translate(675 220)">
+      <rect width="395" height="72" rx="16" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="24" y="45" font-size="23" font-weight="700" fill="#14532d">1. Webcam frame</text>
+    </g>
+    <g transform="translate(675 315)">
+      <rect width="395" height="72" rx="16" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="24" y="45" font-size="23" font-weight="700" fill="#14532d">2. OpenCV crop</text>
+    </g>
+    <g transform="translate(675 410)">
+      <rect width="395" height="72" rx="16" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="24" y="45" font-size="23" font-weight="700" fill="#14532d">3. MobileNetV2 verdict</text>
+    </g>
+  </g>
+</svg>
+
