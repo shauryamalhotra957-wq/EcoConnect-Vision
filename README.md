@@ -4,6 +4,14 @@ EcoConnect Vision is a real-time computer-vision waste classifier. It uses a web
 
 ![EcoConnect Vision waste classifier](docs/readme-preview.svg)
 
+## Repository Description
+
+**GitHub description:** Real-time computer-vision waste classifier using OpenCV motion isolation and a MobileNetV2 Keras model to identify biodegradable vs non-biodegradable materials.
+
+Recommended topics:
+
+`computer-vision`, `opencv`, `tensorflow`, `keras`, `mobilenetv2`, `waste-classification`, `sustainability`, `recycling`, `python`, `jupyter-notebook`
+
 ## Why It Exists
 
 Waste sorting is easiest when feedback is immediate. This project acts as the AI vision engine for a broader EcoConnect ecosystem by showing how lightweight computer vision can classify materials in real time.
