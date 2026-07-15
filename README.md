@@ -105,3 +105,7 @@ EcoConnect-Vision/
 - This is a prototype vision engine, not a production recycling compliance system.
 - Real deployment should include a larger dataset, more classes, model evaluation reports, edge-device profiling, and hardware integration.
 
+## User Experience
+
+The [scanner experience guide](docs/USER_EXPERIENCE.md) turns the notebook into a clear product journey: environment readiness, image input, confidence-aware results, low-confidence recovery, and accessible visual reporting.
+
