@@ -76,7 +76,7 @@ Instead of using a heavier object-detection model, the project uses a hybrid app
 Install dependencies:
 
 ```bash
-pip install tensorflow opencv-python numpy
+pip install tensorflow opencv-python numpy pillow
 ```
 
 Run the notebook:
@@ -86,6 +86,8 @@ biodeg.ipynb
 ```
 
 The repository currently includes `waste_scanner_model.keras`. If you retrain the model, generate or replace that file through the notebook.
+
+The notebook runs a dataset preflight before creating TensorFlow datasets. It verifies that the train and validation splits contain the same two classes and reports unreadable images before a long training run starts.
 
 ## Repository Structure
 
