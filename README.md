@@ -73,13 +73,28 @@ Instead of using a heavier object-detection model, the project uses a hybrid app
 
 ## Local Setup
 
-Install dependencies:
+Create a virtual environment and install the reproducible inference dependencies:
 
 ```bash
-pip install tensorflow opencv-python numpy
+python -m venv .venv
+python -m pip install -r requirements.txt
 ```
 
-Run the notebook:
+Classify one image with the bundled model:
+
+```bash
+python predict.py path/to/waste-item.jpg
+```
+
+Use `--json` for automations or adjust the binary decision boundary when calibrating a deployment:
+
+```bash
+python predict.py path/to/waste-item.jpg --threshold 0.65 --json
+```
+
+The CLI reads the model input dimensions, validates assets before TensorFlow starts, and reports both the class confidence and raw sigmoid score. The bundled model uses the notebook's class order: `biodegradable` is `0` and `non_biodegradable` is `1`.
+
+Run the training notebook when you want to retrain or inspect the original workflow:
 
 ```text
 biodeg.ipynb
@@ -92,7 +107,11 @@ The repository currently includes `waste_scanner_model.keras`. If you retrain th
 ```text
 EcoConnect-Vision/
   biodeg.ipynb
+  predict.py
+  requirements.txt
   waste_scanner_model.keras
+  tests/
+    test_predict.py
   README.md
   docs/
     readme-preview.svg
@@ -104,6 +123,14 @@ EcoConnect-Vision/
 - Test in consistent lighting.
 - This is a prototype vision engine, not a production recycling compliance system.
 - Real deployment should include a larger dataset, more classes, model evaluation reports, edge-device profiling, and hardware integration.
+
+## Test
+
+The lightweight contract tests do not import TensorFlow, so inference input and threshold behavior can be checked quickly:
+
+```bash
+python -m unittest discover -s tests -v
+```
 
 ## User Experience
 
