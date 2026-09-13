@@ -1,5 +1,8 @@
 # EcoConnect Vision
 
+[![CI](https://github.com/shauryamalhotra957-wq/EcoConnect-Vision/actions/workflows/ci.yml/badge.svg)](https://github.com/shauryamalhotra957-wq/EcoConnect-Vision/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
 EcoConnect Vision is a real-time computer-vision waste classifier. It uses a webcam feed, OpenCV motion isolation, and a MobileNetV2-based Keras model to classify visible waste as biodegradable or non-biodegradable.
 
 ![EcoConnect Vision waste classifier](docs/readme-preview.svg)
@@ -108,4 +111,3 @@ EcoConnect-Vision/
 ## User Experience
 
 The [scanner experience guide](docs/USER_EXPERIENCE.md) turns the notebook into a clear product journey: environment readiness, image input, confidence-aware results, low-confidence recovery, and accessible visual reporting.
-
