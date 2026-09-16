@@ -1,113 +1,50 @@
 # EcoConnect Vision
 
-[![CI](https://github.com/shauryamalhotra957-wq/EcoConnect-Vision/actions/workflows/ci.yml/badge.svg)](https://github.com/shauryamalhotra957-wq/EcoConnect-Vision/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/shauryamalhotra957-wq/EcoConnect-Vision/actions/workflows/ci.yml/badge.svg)](https://github.com/shauryamalhotra957-wq/EcoConnect-Vision/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green.svg)](https://opencv.org/)
 
+> Real-time computer-vision waste classification using MobileNetV2 transfer learning and OpenCV motion tracking.
 
-EcoConnect Vision is a real-time computer-vision waste classifier. It uses a webcam feed, OpenCV motion isolation, and a MobileNetV2-based Keras model to classify visible waste as biodegradable or non-biodegradable.
-
-![EcoConnect Vision waste classifier](docs/readme-preview.svg)
-
-## Project Snapshot
-
-| Area | Detail |
-| --- | --- |
-| Experience | Webcam-based waste classification prototype |
-| Core system | OpenCV motion isolation, contour cropping, MobileNetV2 Keras classification |
-| Design signal | README preview graphic plus clear camera-to-verdict pipeline |
-| Quality signal | Documented setup, model performance notes, deployment limitations |
-
-## Repository Description
-
-**GitHub description:** Real-time computer-vision waste classifier using OpenCV motion isolation and a MobileNetV2 Keras model to identify biodegradable vs non-biodegradable materials.
-
-Recommended topics:
-
-`computer-vision`, `opencv`, `tensorflow`, `keras`, `mobilenetv2`, `waste-classification`, `sustainability`, `recycling`, `python`, `jupyter-notebook`
-
-## Why It Exists
-
-Waste sorting is easiest when feedback is immediate. This project acts as the AI vision engine for a broader EcoConnect ecosystem by showing how lightweight computer vision can classify materials in real time.
+---
 
 ## Features
 
-- Real-time webcam inference.
-- OpenCV background subtraction with `MOG2`.
-- Contour detection and dynamic region-of-interest cropping.
-- MobileNetV2 transfer-learning classifier.
-- HUD-style visual overlay rendered through OpenCV.
-- Binary confidence output for biodegradable vs non-biodegradable classification.
+- **Motion-Gated Scanning**: Uses OpenCV background subtraction (`createBackgroundSubtractorMOG2`) and contour bounding to isolate moving objects on conveyers or in front of cameras.
+- **Deep Learning Classifier**: MobileNetV2 fine-tuned on biodegradable vs. non-biodegradable waste categories (`waste_scanner_model.keras`).
+- **Flexible Modes**:
+  - Live webcam feed (`--webcam`)
+  - Single-image inference (`--image <path>`)
+  - Batch directory scanning (`--batch <folder>`)
+  - Structured JSON export (`--output-json <report.json>`)
 
-## Technical Stack
-
-- Python
-- TensorFlow / Keras
-- OpenCV
-- NumPy
-- MobileNetV2 transfer learning
-- Jupyter Notebook workflow
-
-## Model Performance
-
-The model was trained on a custom waste image dataset.
-
-- Training accuracy: approximately 96 percent.
-- Validation accuracy: approximately 90 percent.
-
-Actual performance depends on lighting, background stability, camera quality, class balance, and the real-world materials being tested.
-
-## How It Works
-
-```text
-Webcam frame
-  -> background subtraction
-  -> contour detection
-  -> object crop
-  -> MobileNetV2 classifier
-  -> biodegradable / non-biodegradable verdict
-  -> colored HUD feedback
-```
-
-Instead of using a heavier object-detection model, the project uses a hybrid approach:
-
-1. OpenCV isolates movement in the frame.
-2. The largest relevant contour is cropped as the object region.
-3. The crop is resized and passed to the trained Keras model.
-4. The UI shows the classification with a visual bounding box.
-
-## Local Setup
-
-Install dependencies:
+## Quickstart
 
 ```bash
-pip install tensorflow opencv-python numpy
+# Clone the repository
+git clone https://github.com/shauryamalhotra957-wq/EcoConnect-Vision.git
+cd EcoConnect-Vision
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Classify a single image
+python classify_waste.py --image sample.jpg
+
+# Batch classify a directory of waste images
+python classify_waste.py --batch ./test_images/ --output-json results.json
+
+# Launch live webcam detection
+python classify_waste.py --webcam
 ```
 
-Run the notebook:
+## Running Unit Tests
 
-```text
-biodeg.ipynb
+```bash
+python -m unittest discover -s tests
 ```
 
-The repository currently includes `waste_scanner_model.keras`. If you retrain the model, generate or replace that file through the notebook.
+## License
 
-## Repository Structure
-
-```text
-EcoConnect-Vision/
-  biodeg.ipynb
-  waste_scanner_model.keras
-  README.md
-  docs/
-    readme-preview.svg
-```
-
-## Notes
-
-- Keep the webcam background still for better motion isolation.
-- Test in consistent lighting.
-- This is a prototype vision engine, not a production recycling compliance system.
-- Real deployment should include a larger dataset, more classes, model evaluation reports, edge-device profiling, and hardware integration.
-
-## User Experience
-
-The [scanner experience guide](docs/USER_EXPERIENCE.md) turns the notebook into a clear product journey: environment readiness, image input, confidence-aware results, low-confidence recovery, and accessible visual reporting.
+MIT © [Shaurya Malhotra](https://github.com/shauryamalhotra957-wq)

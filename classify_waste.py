@@ -1,7 +1,9 @@
-﻿"""Real-time and single-image waste classification with MobileNetV2 and OpenCV."""
+"""Real-time, single-image, and batch waste classification with MobileNetV2 and OpenCV."""
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import sys
 from pathlib import Path
 
@@ -36,10 +38,29 @@ def classify_image(model, image_path: str) -> dict[str, object]:
     confidence = prediction if is_non_bio else (1.0 - prediction)
 
     return {
+        "file": str(image_path),
         "label": label,
-        "confidence": confidence,
-        "raw_score": prediction,
+        "confidence": round(confidence, 4),
+        "raw_score": round(prediction, 4),
     }
+
+
+def classify_batch(model, directory_path: str) -> list[dict[str, object]]:
+    valid_exts = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
+    folder = Path(directory_path)
+    if not folder.is_dir():
+        raise NotADirectoryError(f"Directory not found: {directory_path}")
+
+    results = []
+    for file_path in sorted(folder.iterdir()):
+        if file_path.suffix.lower() in valid_exts:
+            try:
+                res = classify_image(model, str(file_path))
+                results.append(res)
+            except Exception as e:
+                results.append({"file": str(file_path), "error": str(e)})
+
+    return results
 
 
 def run_webcam(model, camera_index: int = 0) -> None:
@@ -118,7 +139,9 @@ def run_webcam(model, camera_index: int = 0) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="EcoConnect Vision Waste Classifier")
-    parser.add_argument("--image", type=str, help="Path to an image to classify")
+    parser.add_argument("--image", type=str, help="Path to a single image to classify")
+    parser.add_argument("--batch", type=str, help="Directory of images to batch classify")
+    parser.add_argument("--output-json", type=str, help="Save classification results to a JSON file")
     parser.add_argument(
         "--webcam", action="store_true", help="Launch live webcam inference"
     )
@@ -134,7 +157,7 @@ def main() -> int:
 
     args = parser.parse_args()
 
-    if not args.image and not args.webcam:
+    if not args.image and not args.batch and not args.webcam:
         parser.print_help()
         return 0
 
@@ -145,6 +168,21 @@ def main() -> int:
         print(
             f"Classification: {result['label']} (Confidence: {result['confidence']:.2%})"
         )
+        if args.output_json:
+            with open(args.output_json, "w", encoding="utf-8") as f:
+                json.dump(result, f, indent=2)
+    elif args.batch:
+        results = classify_batch(model, args.batch)
+        print(f"Batch processed {len(results)} image(s):")
+        for r in results:
+            if "error" in r:
+                print(f"  {r['file']}: ERROR ({r['error']})")
+            else:
+                print(f"  {r['file']}: {r['label']} ({r['confidence']:.1%})")
+        if args.output_json:
+            with open(args.output_json, "w", encoding="utf-8") as f:
+                json.dump(results, f, indent=2)
+            print(f"Results saved to {args.output_json}")
     elif args.webcam:
         run_webcam(model, args.camera)
 
