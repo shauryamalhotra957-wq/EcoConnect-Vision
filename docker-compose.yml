@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  ecoconnect-vision:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - ENV=production
+    command: python tests/benchmark_cv_latency.py
